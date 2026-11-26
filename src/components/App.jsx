@@ -14,6 +14,7 @@ import {
   deleteBouquet,
   resetDemoBouquets,
 } from '../lib/productService'
+import { onAuthChange } from '../lib/adminAccess'
 
 // the admin side is loaded only when someone opens it
 const LoginPage = lazy(() => import('../pages/LoginPage'))
@@ -28,6 +29,10 @@ export default function App() {
   const [retryCount, setRetryCount] = useState(0)
   const deleting = useRef(new Set())
 
+  // visitors only receive available bouquets from the database, so load again after signing in or out
+  const [authVersion, setAuthVersion] = useState(0)
+  useEffect(() => onAuthChange((event) => event !== 'TOKEN_REFRESHED' && setAuthVersion((n) => n + 1)), [])
+
   useEffect(() => {
     let active = true
     getBouquets()
@@ -37,7 +42,7 @@ export default function App() {
     return () => {
       active = false
     }
-  }, [retryCount])
+  }, [retryCount, authVersion])
 
   const fail = (err) => toast.error(t('toast.failed', { message: err?.message || '?' }))
 
