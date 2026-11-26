@@ -50,7 +50,7 @@ export default function ShopPage({ bouquets }) {
         </section>
 
         {available.length > 0 && (
-          <div className="sticky top-[65px] z-20 -mx-4 flex flex-col gap-3 border-y border-line bg-paper/85 px-4 py-3 backdrop-blur-md sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:rounded-full sm:border sm:px-3">
+          <div className="sticky top-16 z-20 -mx-4 flex flex-col gap-3 border-y border-line bg-paper/85 px-4 py-3 backdrop-blur-md sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:rounded-full sm:border sm:px-3">
             <div role="group" aria-label={t('form.category')} className="-mx-1 flex gap-1 overflow-x-auto px-1">
               {['all', ...usedCategories].map((c) => (
                 <button

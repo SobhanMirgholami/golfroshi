@@ -32,7 +32,7 @@ export default function LoginPage() {
   return (
     <>
       <Header />
-      <main className="grid min-h-[calc(100svh-65px)] place-items-center px-4 py-12">
+      <main className="grid min-h-[calc(100svh-4rem)] place-items-center px-4 py-12">
         <form onSubmit={handleSubmit} className="flex w-full max-w-sm flex-col gap-5">
           <div>
             <h1 className="font-display text-4xl">{t('login.title')}</h1>
