@@ -1,1 +1,116 @@
 @import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/vazirmatn";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Paper and ink: a florist's wrapping paper by day, a dark greenhouse by night */
+:root {
+  --paper: #f4efe7;
+  --paper-2: #ebe3d6;
+  --card: #fbf8f3;
+  --ink: #1d211c;
+  --muted: #6d6b62;
+  --line: rgb(29 33 28 / 0.13);
+  --accent: #b2475b;
+  --accent-ink: #fff7f4;
+  --leaf: #4d6a4a;
+  --danger: #b23a3a;
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #111411;
+  --paper-2: #181c18;
+  --card: #161a16;
+  --ink: #ece6da;
+  --muted: #9b998e;
+  --line: rgb(236 230 218 / 0.13);
+  --accent: #e6909f;
+  --accent-ink: #1a0f12;
+  --leaf: #9dba95;
+  --danger: #f08a80;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-leaf: var(--leaf);
+  --color-danger: var(--danger);
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+}
+
+/* Arabic gets Vazirmatn for both display and body text */
+html[lang="ar"] {
+  --font-display: "Vazirmatn Variable", "Inter Variable", sans-serif;
+  --font-sans: "Vazirmatn Variable", "Inter Variable", sans-serif;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100svh;
+  background:
+    radial-gradient(60rem 40rem at 110% -10%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 70%),
+    radial-gradient(50rem 30rem at -20% 110%, color-mix(in oklab, var(--leaf) 10%, transparent), transparent 70%),
+    var(--paper);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-ink text-paper hover:bg-accent hover:text-accent-ink;
+  }
+  .btn-outline {
+    @apply border border-line text-ink hover:border-ink;
+  }
+  .btn-ghost {
+    @apply text-muted hover:text-ink;
+  }
+  .icon-btn {
+    @apply inline-flex size-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-ink;
+  }
+  .field {
+    @apply w-full rounded-2xl border border-line bg-card px-4 py-3 text-ink placeholder:text-muted/70 focus:border-ink focus:outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium tracking-wide text-muted uppercase;
+  }
+  /* The arch: the shape every bouquet photo sits in */
+  .arch {
+    border-radius: 999px 999px 1.25rem 1.25rem;
+  }
+}
