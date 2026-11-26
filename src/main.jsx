@@ -4,8 +4,10 @@ import './index.css'
 import './i18n'
 import App from './components/App.jsx'
 import { applyTheme, getTheme } from './lib/theme'
+import { stampBuild } from './lib/buildInfo'
 
 applyTheme(getTheme())
+stampBuild()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
