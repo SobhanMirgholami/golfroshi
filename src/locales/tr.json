@@ -1,0 +1,112 @@
+{
+  "brand": {
+    "name": "Golfroshi",
+    "tagline": "Çiçek atölyesi"
+  },
+  "language": "Dil",
+  "theme": {
+    "light": "Açık temaya geç",
+    "dark": "Koyu temaya geç"
+  },
+  "hero": {
+    "eyebrow": "Bugün masada",
+    "title": "Yalnızca şu an elimizde olan buketler.",
+    "subtitle": "Her buket az sayıda ve elde hazırlanır. Biri tükendiğinde bu sayfadan sessizce kalkar.",
+    "count_one": "{{count}} buket mevcut",
+    "count_other": "{{count}} buket mevcut"
+  },
+  "catalog": {
+    "search": "Buket ara",
+    "all": "Tümü",
+    "empty": "Şu an masada buket yok. Taze çiçekler yakında geliyor.",
+    "noResults": "Aramanıza uyan buket bulunamadı.",
+    "close": "Kapat",
+    "details": "{{name}} buketini incele",
+    "number": "No. {{n}}"
+  },
+  "categories": {
+    "romantic": "Romantik",
+    "pastel": "Pastel",
+    "wild": "Kır ve bahçe",
+    "seasonal": "Mevsimlik",
+    "luxury": "İmza"
+  },
+  "footer": {
+    "note": "Fiyatlara paketleme ve el yazısı kart dahildir.",
+    "admin": "Mağaza girişi",
+    "credit": "Tasarım ve geliştirme: Co$mo"
+  },
+  "status": {
+    "loading": "Buketler yükleniyor…",
+    "checking": "Erişim kontrol ediliyor…",
+    "loadError": "Buketler yüklenemedi: {{message}}",
+    "retry": "Tekrar dene"
+  },
+  "login": {
+    "title": "Mağaza girişi",
+    "subtitle": "Sitedeki buketleri yönetmek için giriş yapın.",
+    "email": "E-posta",
+    "password": "Şifre",
+    "submit": "Giriş yap",
+    "signingIn": "Giriş yapılıyor…",
+    "back": "Buketlere dön",
+    "failed": "E-posta veya şifre hatalı.",
+    "demoHint": "Demo modu: bağlı bir veritabanı yok, değişiklikler bu tarayıcıda kalır. Demo şifresi README dosyasında.",
+    "denied": "Bu hesabın mağazayı yönetme yetkisi yok.",
+    "accessError": "Erişim kontrol edilemedi. Bağlantıyı kontrol edip tekrar deneyin.",
+    "otherAccount": "Başka bir hesapla giriş yap"
+  },
+  "admin": {
+    "title": "Buketler",
+    "subtitle": "Buket ekleyin, düzenleyin veya kaldırın. Müşterilere yalnızca mevcut olanlar gösterilir.",
+    "add": "Yeni buket",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "signOut": "Çıkış yap",
+    "viewSite": "Siteyi gör",
+    "available": "Mevcut",
+    "soldOut": "Tükendi",
+    "markSoldOut": "Tükendi olarak işaretle",
+    "markAvailable": "Mevcut olarak işaretle",
+    "confirmDelete": "“{{name}}” silinsin mi?",
+    "stats": "{{total}} buketten {{available}} tanesi sitede",
+    "empty": "Henüz buket yok. İlkini ekleyin.",
+    "demoBadge": "Demo modu",
+    "resetDemo": "Örnek buketleri geri yükle",
+    "confirmReset": "Tüm buketler örnek buketlerle değiştirilsin mi?"
+  },
+  "form": {
+    "addTitle": "Yeni buket",
+    "editTitle": "Buketi düzenle",
+    "name": "Ad",
+    "description": "Açıklama",
+    "price": "Fiyat (₺)",
+    "category": "Kategori",
+    "image": "Fotoğraf",
+    "chooseImage": "Fotoğraf seç",
+    "changeImage": "Fotoğrafı değiştir",
+    "imageHint": "JPG, PNG veya WebP. Yüklemeden önce WebP olarak küçültülür.",
+    "availableNow": "Şimdi sitede göster",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor…",
+    "cancel": "Vazgeç",
+    "langTab": "{{lang}} metin",
+    "errors": {
+      "name": "Adı üç dilde de yazın.",
+      "price": "Fiyat pozitif bir sayı olmalı.",
+      "category": "Bir kategori seçin.",
+      "image": "Bir fotoğraf seçin.",
+      "imageType": "Fotoğraf JPG, PNG veya WebP olmalı.",
+      "imageFailed": "Bu fotoğraf okunamadı."
+    }
+  },
+  "toast": {
+    "added": "Buket eklendi.",
+    "updated": "Değişiklikler kaydedildi.",
+    "deleted": "Buket silindi.",
+    "deleting": "Siliniyor…",
+    "toggled": "Durum değişti.",
+    "reset": "Örnek buketler geri yüklendi.",
+    "failed": "Bir sorun oluştu: {{message}}"
+  }
+}

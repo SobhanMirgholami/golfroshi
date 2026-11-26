@@ -1,0 +1,112 @@
+{
+  "brand": {
+    "name": "Golfroshi",
+    "tagline": "Flower atelier"
+  },
+  "language": "Language",
+  "theme": {
+    "light": "Switch to light theme",
+    "dark": "Switch to dark theme"
+  },
+  "hero": {
+    "eyebrow": "On the table today",
+    "title": "Only the bouquets that are here right now.",
+    "subtitle": "Every arrangement is made by hand in small numbers. When one sells out, it quietly leaves this page.",
+    "count_one": "{{count}} bouquet available",
+    "count_other": "{{count}} bouquets available"
+  },
+  "catalog": {
+    "search": "Search bouquets",
+    "all": "All",
+    "empty": "Nothing on the table right now. Fresh flowers arrive soon.",
+    "noResults": "No bouquet matches your search.",
+    "close": "Close",
+    "details": "View {{name}}",
+    "number": "No. {{n}}"
+  },
+  "categories": {
+    "romantic": "Romantic",
+    "pastel": "Pastel",
+    "wild": "Wild & garden",
+    "seasonal": "Seasonal",
+    "luxury": "Signature"
+  },
+  "footer": {
+    "note": "Prices include wrapping and a handwritten card.",
+    "admin": "Shop login",
+    "credit": "Designed and built by Co$mo"
+  },
+  "status": {
+    "loading": "Loading bouquets…",
+    "checking": "Checking access…",
+    "loadError": "Bouquets could not be loaded: {{message}}",
+    "retry": "Try again"
+  },
+  "login": {
+    "title": "Shop login",
+    "subtitle": "Sign in to manage the bouquets on the site.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "signingIn": "Signing in…",
+    "back": "Back to the bouquets",
+    "failed": "Email or password is wrong.",
+    "demoHint": "Demo mode: no database is connected, so changes stay in this browser. The demo password is in the README.",
+    "denied": "This account can't manage the shop.",
+    "accessError": "Access could not be checked. Check the connection and try again.",
+    "otherAccount": "Sign in with another account"
+  },
+  "admin": {
+    "title": "Bouquets",
+    "subtitle": "Add, edit or remove bouquets. Only the available ones are shown to customers.",
+    "add": "New bouquet",
+    "edit": "Edit",
+    "delete": "Delete",
+    "signOut": "Sign out",
+    "viewSite": "View site",
+    "available": "Available",
+    "soldOut": "Sold out",
+    "markSoldOut": "Mark as sold out",
+    "markAvailable": "Mark as available",
+    "confirmDelete": "Delete “{{name}}”?",
+    "stats": "{{available}} of {{total}} on the site",
+    "empty": "No bouquets yet. Add the first one.",
+    "demoBadge": "Demo mode",
+    "resetDemo": "Reset sample bouquets",
+    "confirmReset": "Replace all bouquets with the sample bouquets?"
+  },
+  "form": {
+    "addTitle": "New bouquet",
+    "editTitle": "Edit bouquet",
+    "name": "Name",
+    "description": "Description",
+    "price": "Price (₺)",
+    "category": "Category",
+    "image": "Photo",
+    "chooseImage": "Choose a photo",
+    "changeImage": "Change photo",
+    "imageHint": "JPG, PNG or WebP. It's resized to WebP before upload.",
+    "availableNow": "Show on the site now",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "langTab": "Text in {{lang}}",
+    "errors": {
+      "name": "Write a name in all three languages.",
+      "price": "Price must be a positive number.",
+      "category": "Choose a category.",
+      "image": "Choose a photo.",
+      "imageType": "The photo must be JPG, PNG or WebP.",
+      "imageFailed": "This photo could not be read."
+    }
+  },
+  "toast": {
+    "added": "Bouquet added.",
+    "updated": "Changes saved.",
+    "deleted": "Bouquet deleted.",
+    "deleting": "Deleting…",
+    "toggled": "Availability changed.",
+    "reset": "Sample bouquets restored.",
+    "failed": "Something went wrong: {{message}}"
+  }
+}
