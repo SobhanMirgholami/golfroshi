@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { MotionConfig } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import ShopPage from '../pages/ShopPage'
 import Loading from './Loading'
 import { getBouquets } from '../lib/productService'
+
+// the admin side is loaded only when someone opens it
+const LoginPage = lazy(() => import('../pages/LoginPage'))
+const AdminPage = lazy(() => import('../pages/AdminPage'))
+const ProtectedRoute = lazy(() => import('./ProtectedRoute'))
 
 export default function App() {
   const { t } = useTranslation()
@@ -52,9 +57,16 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={withData(<ShopPage bouquets={bouquets} />)} />
-        </Routes>
+        <Suspense fallback={<Loading label={t('status.loading')} />}>
+          <Routes>
+            <Route path="/" element={withData(<ShopPage bouquets={bouquets} />)} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/admin"
+              element={<ProtectedRoute>{withData(<AdminPage bouquets={bouquets} />)}</ProtectedRoute>}
+            />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </MotionConfig>
   )
