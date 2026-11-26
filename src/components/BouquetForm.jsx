@@ -33,7 +33,12 @@ export default function BouquetForm({ bouquet, onSave, onClose }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bouquet])
 
-  const setText = (field, lang, value) => setForm((f) => ({ ...f, [field]: { ...f[field], [lang]: value } }))
+  // editing a field clears its error right away
+  function update(field, value) {
+    setForm((f) => ({ ...f, [field]: value }))
+    setErrors((e) => ({ ...e, [field]: undefined }))
+  }
+  const setText = (field, lang, value) => update(field, { ...form[field], [lang]: value })
 
   async function handleImage(event) {
     const file = event.target.files?.[0]
@@ -149,11 +154,11 @@ export default function BouquetForm({ bouquet, onSave, onClose }) {
             <div className="grid grid-cols-2 gap-4">
               <label>
                 <span className="label">{t('form.price')}</span>
-                <input type="number" min="1" step="1" inputMode="numeric" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className={`field ${errors.price ? 'border-danger' : ''}`} dir="ltr" />
+                <input type="number" min="1" step="1" inputMode="numeric" value={form.price} onChange={(e) => update('price', e.target.value)} className={`field ${errors.price ? 'border-danger' : ''}`} dir="ltr" />
               </label>
               <label>
                 <span className="label">{t('form.category')}</span>
-                <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} className={`field ${errors.category ? 'border-danger' : ''}`}>
+                <select value={form.category} onChange={(e) => update('category', e.target.value)} className={`field ${errors.category ? 'border-danger' : ''}`}>
                   <option value="" disabled>—</option>
                   {CATEGORIES.map((c) => (
                     <option key={c} value={c}>{t(`categories.${c}`)}</option>
@@ -164,7 +169,7 @@ export default function BouquetForm({ bouquet, onSave, onClose }) {
             {(errors.price || errors.category) && <p className="text-sm text-danger">{errors.price || errors.category}</p>}
 
             <label className="flex cursor-pointer items-center gap-3 text-sm">
-              <input type="checkbox" checked={form.isAvailable} onChange={(e) => setForm((f) => ({ ...f, isAvailable: e.target.checked }))} className="size-4 accent-[var(--accent)]" />
+              <input type="checkbox" checked={form.isAvailable} onChange={(e) => update('isAvailable', e.target.checked)} className="size-4 accent-[var(--accent)]" />
               {t('form.availableNow')}
             </label>
           </div>
