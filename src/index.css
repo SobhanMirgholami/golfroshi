@@ -114,3 +114,11 @@ body {
     border-radius: 999px 999px 1.25rem 1.25rem;
   }
 }
+
+/* Arabic letters join, so no letter spacing and no fake italics */
+html[lang="ar"] [class*="tracking-"] {
+  letter-spacing: 0;
+}
+html[lang="ar"] .italic {
+  font-style: normal;
+}
