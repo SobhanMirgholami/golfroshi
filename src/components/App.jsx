@@ -2,9 +2,10 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { MotionConfig } from 'motion/react'
 import { useTranslation } from 'react-i18next'
+import toast, { Toaster } from 'react-hot-toast'
 import ShopPage from '../pages/ShopPage'
 import Loading from './Loading'
-import { getBouquets } from '../lib/productService'
+import { getBouquets, createBouquet, updateBouquet } from '../lib/productService'
 
 // the admin side is loaded only when someone opens it
 const LoginPage = lazy(() => import('../pages/LoginPage'))
@@ -28,6 +29,30 @@ export default function App() {
       active = false
     }
   }, [retryCount])
+
+  const fail = (err) => toast.error(t('toast.failed', { message: err?.message || '?' }))
+
+  async function handleAdd(bouquet) {
+    try {
+      const saved = await createBouquet(bouquet)
+      setBouquets((list) => [...list, saved])
+      toast.success(t('toast.added'))
+    } catch (err) {
+      fail(err)
+      throw err
+    }
+  }
+
+  async function handleUpdate(bouquet) {
+    try {
+      const saved = await updateBouquet(bouquet)
+      setBouquets((list) => list.map((b) => (b.id === saved.id ? saved : b)))
+      toast.success(t('toast.updated'))
+    } catch (err) {
+      fail(err)
+      throw err
+    }
+  }
 
   function withData(page) {
     if (loading) return <Loading label={t('status.loading')} />
@@ -57,13 +82,20 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <BrowserRouter>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            duration: 3500,
+            style: { fontFamily: 'var(--font-sans)', color: 'var(--ink)', background: 'var(--card)', border: '1px solid var(--line)', borderRadius: '999px' },
+          }}
+        />
         <Suspense fallback={<Loading label={t('status.loading')} />}>
           <Routes>
             <Route path="/" element={withData(<ShopPage bouquets={bouquets} />)} />
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/admin"
-              element={<ProtectedRoute>{withData(<AdminPage bouquets={bouquets} />)}</ProtectedRoute>}
+              element={<ProtectedRoute>{withData(<AdminPage bouquets={bouquets} onAdd={handleAdd} onUpdate={handleUpdate} />)}</ProtectedRoute>}
             />
           </Routes>
         </Suspense>
