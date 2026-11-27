@@ -122,3 +122,109 @@ html[lang="ar"] [class*="tracking-"] {
 html[lang="ar"] .italic {
   font-style: normal;
 }
+
+/* ---------- hero animation (CSS only, transform + opacity, cheap on phones) ---------- */
+
+.hero-petals {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  /* fade the petals out towards the bottom so they never cross the filter bar */
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  inset-inline-start: var(--left);
+  width: var(--size);
+  height: calc(var(--size) * 1.4);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: petal-fall var(--duration) linear var(--delay) infinite;
+}
+
+.hero-petals[data-paused='true'] .petal {
+  animation-play-state: paused;
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(var(--drift), 260px, 0) rotate(160deg);
+  }
+  85% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(calc(var(--drift) * -0.5), 540px, 0) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+/* small screens: half the petals */
+@media (max-width: 640px) {
+  .petal-wide {
+    display: none;
+  }
+}
+
+/* the title rises in word by word, once */
+.hero-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.hero-word > span {
+  display: inline-block;
+  transform: translate3d(0, 105%, 0);
+  animation: word-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i) * 80ms + 100ms);
+}
+
+@keyframes word-rise {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-fade {
+  opacity: 0;
+  animation: hero-fade 0.8s ease-out forwards;
+  animation-delay: var(--delay, 0.5s);
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-petals {
+    display: none;
+  }
+  .hero-word > span,
+  .hero-fade {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+}

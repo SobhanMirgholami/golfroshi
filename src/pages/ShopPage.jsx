@@ -6,6 +6,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react'
 import Header from '../components/Header'
 import BouquetCard from '../components/BouquetCard'
 import BouquetDialog from '../components/BouquetDialog'
+import HeroPetals from '../components/HeroPetals'
 import { useCategories } from '../lib/categories'
 import { pick } from '../i18n'
 
@@ -34,18 +35,32 @@ export default function ShopPage({ bouquets }) {
     <>
       <Header />
       <main className="mx-auto max-w-6xl px-4 sm:px-6">
-        <section className="grid gap-8 py-14 sm:py-20 md:grid-cols-[1.4fr_1fr] md:items-end">
+        <section className="relative isolate grid gap-8 py-14 sm:py-20 md:grid-cols-[1.4fr_1fr] md:items-end">
+          <HeroPetals />
           <div>
-            <p className="flex items-center gap-2 text-xs tracking-[0.22em] text-leaf uppercase">
+            <p className="hero-fade flex items-center gap-2 text-xs tracking-[0.22em] text-leaf uppercase">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-leaf opacity-60 motion-reduce:animate-none" />
                 <span className="relative inline-flex size-2 rounded-full bg-leaf" />
               </span>
               {t('hero.eyebrow')}
             </p>
-            <h1 className="mt-5 font-display text-5xl leading-[1.02] font-light tracking-tight text-balance sm:text-7xl">{t('hero.title')}</h1>
+            <h1 className="mt-5 font-display text-5xl leading-[1.02] font-light tracking-tight text-balance sm:text-7xl" aria-label={t('hero.title')}>
+              {/* key: replay the rise when the language changes */}
+              <span key={lang} aria-hidden="true">
+                {t('hero.title')
+                  .split(' ')
+                  .map((word, i) => (
+                    <span key={i}>
+                      <span className="hero-word">
+                        <span style={{ '--i': i }}>{word}</span>
+                      </span>{' '}
+                    </span>
+                  ))}
+              </span>
+            </h1>
           </div>
-          <div className="flex flex-col gap-4 md:pb-3">
+          <div className="hero-fade flex flex-col gap-4 md:pb-3" style={{ '--delay': '0.7s' }}>
             <p className="leading-relaxed text-muted">{t('hero.subtitle')}</p>
             <p className="font-display text-lg italic">{t('hero.count', { count: available.length })}</p>
           </div>
