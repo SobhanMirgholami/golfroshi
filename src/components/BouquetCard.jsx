@@ -2,11 +2,13 @@ import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { pick } from '../i18n'
 import { formatPrice } from '../lib/format'
+import { useCategoryName } from '../lib/categories'
 
 export default function BouquetCard({ bouquet, number, onOpen }) {
   const { t, i18n } = useTranslation()
   const lang = i18n.resolvedLanguage
   const name = pick(bouquet.name, lang)
+  const categoryName = useCategoryName()
 
   return (
     <motion.li
@@ -32,7 +34,7 @@ export default function BouquetCard({ bouquet, number, onOpen }) {
           <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-accent">{name}</h3>
           <span className="shrink-0 text-sm font-medium tabular-nums">{formatPrice(bouquet.price, lang)}</span>
         </div>
-        <p className="mt-1 text-xs tracking-[0.18em] text-muted uppercase">{t(`categories.${bouquet.category}`)}</p>
+        <p className="mt-1 text-xs tracking-[0.18em] text-muted uppercase">{categoryName(bouquet.category)}</p>
       </button>
     </motion.li>
   )

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ImageSquare, X } from '@phosphor-icons/react'
 import { LANGUAGES } from '../i18n'
-import { CATEGORIES } from '../lib/sampleBouquets'
+import { useCategories } from '../lib/categories'
+import { pick } from '../i18n'
 import { optimizeImage } from '../lib/optimizeImage'
 
 const emptyText = { tr: '', en: '', ar: '' }
@@ -18,6 +19,7 @@ export default function BouquetForm({ bouquet, onSave, onClose }) {
   const [errors, setErrors] = useState({})
   const [saving, setSaving] = useState(false)
   const editing = Boolean(bouquet?.id)
+  const categories = useCategories()
 
   useEffect(() => {
     const dialog = ref.current
@@ -62,7 +64,7 @@ export default function BouquetForm({ bouquet, onSave, onClose }) {
     if (LANGUAGES.some((l) => !form.name[l.code].trim())) next.name = t('form.errors.name')
     const price = Number(form.price)
     if (!Number.isFinite(price) || price <= 0) next.price = t('form.errors.price')
-    if (!CATEGORIES.includes(form.category)) next.category = t('form.errors.category')
+    if (!categories.some((c) => c.id === form.category)) next.category = t('form.errors.category')
     if (!form.image) next.image = t('form.errors.image')
     setErrors(next)
     // jump to the first language that is missing a name
@@ -160,8 +162,8 @@ export default function BouquetForm({ bouquet, onSave, onClose }) {
                 <span className="label">{t('form.category')}</span>
                 <select value={form.category} onChange={(e) => update('category', e.target.value)} className={`field ${errors.category ? 'border-danger' : ''}`}>
                   <option value="" disabled>—</option>
-                  {CATEGORIES.map((c) => (
-                    <option key={c} value={c}>{t(`categories.${c}`)}</option>
+                  {categories.map((c) => (
+                    <option key={c.id} value={c.id}>{pick(c.name, i18n.resolvedLanguage)}</option>
                   ))}
                 </select>
               </label>

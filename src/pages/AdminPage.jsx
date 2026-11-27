@@ -4,15 +4,18 @@ import { useTranslation } from 'react-i18next'
 import { ArrowCounterClockwise, PencilSimple, Plus, SignOut, Storefront, Trash } from '@phosphor-icons/react'
 import Header from '../components/Header'
 import BouquetForm from '../components/BouquetForm'
+import CategoryManager from '../components/CategoryManager'
+import { useCategoryName } from '../lib/categories'
 import { pick } from '../i18n'
 import { formatPrice } from '../lib/format'
 import { signOut } from '../lib/adminAccess'
 import { isDemo } from '../lib/supabaseClient'
 
-export default function AdminPage({ bouquets, onAdd, onUpdate, onToggle, onDelete, onReset }) {
+export default function AdminPage({ bouquets, onAdd, onUpdate, onToggle, onDelete, onReset, onAddCategory, onDeleteCategory }) {
   const { t, i18n } = useTranslation()
   const lang = i18n.resolvedLanguage
   const available = bouquets.filter((b) => b.isAvailable).length
+  const categoryName = useCategoryName()
   // null: form closed, {}: adding, a bouquet: editing it
   const [editing, setEditing] = useState(null)
 
@@ -58,7 +61,7 @@ export default function AdminPage({ bouquets, onAdd, onUpdate, onToggle, onDelet
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-display text-xl">{name}</p>
                   <p className="text-sm text-muted">
-                    {t(`categories.${b.category}`)} · {formatPrice(b.price, lang)}
+                    {categoryName(b.category)} · {formatPrice(b.price, lang)}
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-1.5">
@@ -88,6 +91,8 @@ export default function AdminPage({ bouquets, onAdd, onUpdate, onToggle, onDelet
           })}
         </ul>
         {bouquets.length === 0 && <p className="py-16 text-center text-muted">{t('admin.empty')}</p>}
+
+        <CategoryManager bouquets={bouquets} onAdd={onAddCategory} onDelete={onDeleteCategory} />
       </main>
 
       <BouquetForm bouquet={editing} onSave={editing?.id ? onUpdate : onAdd} onClose={() => setEditing(null)} />

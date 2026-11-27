@@ -24,13 +24,6 @@
     "details": "{{name}} buketini incele",
     "number": "No. {{n}}"
   },
-  "categories": {
-    "romantic": "Romantik",
-    "pastel": "Pastel",
-    "wild": "Kır ve bahçe",
-    "seasonal": "Mevsimlik",
-    "luxury": "İmza"
-  },
   "footer": {
     "note": "Fiyatlara paketleme ve el yazısı kart dahildir.",
     "admin": "Mağaza girişi",
@@ -73,7 +66,17 @@
     "empty": "Henüz buket yok. İlkini ekleyin.",
     "demoBadge": "Demo modu",
     "resetDemo": "Örnek buketleri geri yükle",
-    "confirmReset": "Tüm buketler örnek buketlerle değiştirilsin mi?"
+    "confirmReset": "Tüm buketler örnek buketlerle değiştirilsin mi?",
+    "categoriesTitle": "Kategoriler",
+    "categoriesHint": "Müşteriler bir kategoriyi yalnızca içinde mevcut bir buket varsa görür. Bir buketin hâlâ kullandığı kategori silinemez.",
+    "addCategory": "Kategori ekle",
+    "categoryPlaceholder": "{{lang}} adı",
+    "categoryCount_one": "{{count}} buket",
+    "categoryCount_other": "{{count}} buket",
+    "deleteCategory": "{{name}} kategorisini sil",
+    "categoryInUse": "Önce “{{name}}” içindeki buketleri taşıyın veya silin.",
+    "confirmDeleteCategory": "“{{name}}” kategorisi silinsin mi?",
+    "categoryNameMissing": "Kategori adını üç dilde de yazın."
   },
   "form": {
     "addTitle": "Yeni buket",
@@ -107,6 +110,8 @@
     "deleting": "Siliniyor…",
     "toggled": "Durum değişti.",
     "reset": "Örnek buketler geri yüklendi.",
-    "failed": "Bir sorun oluştu: {{message}}"
+    "failed": "Bir sorun oluştu: {{message}}",
+    "categoryAdded": "Kategori eklendi.",
+    "categoryDeleted": "Kategori silindi."
   }
 }

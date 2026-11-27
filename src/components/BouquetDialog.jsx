@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { X } from '@phosphor-icons/react'
 import { pick } from '../i18n'
 import { formatPrice } from '../lib/format'
+import { useCategoryName } from '../lib/categories'
 
 // Native <dialog>: focus trap, Esc to close and a backdrop come for free
 export default function BouquetDialog({ bouquet, onClose }) {
   const { t, i18n } = useTranslation()
   const lang = i18n.resolvedLanguage
   const ref = useRef(null)
+  const categoryName = useCategoryName()
 
   useEffect(() => {
     const dialog = ref.current
@@ -30,7 +32,7 @@ export default function BouquetDialog({ bouquet, onClose }) {
             <button type="button" onClick={onClose} className="icon-btn absolute top-5 end-5" aria-label={t('catalog.close')}>
               <X size={18} />
             </button>
-            <p className="text-xs tracking-[0.2em] text-muted uppercase">{t(`categories.${bouquet.category}`)}</p>
+            <p className="text-xs tracking-[0.2em] text-muted uppercase">{categoryName(bouquet.category)}</p>
             <h2 className="font-display text-4xl leading-tight sm:text-5xl">{pick(bouquet.name, lang)}</h2>
             <p className="leading-relaxed text-muted">{pick(bouquet.description, lang)}</p>
             <p className="mt-auto border-t border-line pt-5 font-display text-3xl tabular-nums">{formatPrice(bouquet.price, lang)}</p>

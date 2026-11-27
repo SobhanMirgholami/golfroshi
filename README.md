@@ -67,6 +67,7 @@ So the public site shows **only the available bouquets**. When a bouquet sells o
 - 🔐 Sign-in, protected admin page, sign-out
 - ➕ Add, ✏️ edit and 🗑️ delete bouquets
 - 🔁 One switch for **available / sold out**
+- 🗂️ Add and remove **categories**, named in all three languages (a category still in use can't be deleted)
 - 🌍 Name and description written in all three languages, each field typed in its own direction
 - 🖼️ Photos are resized to 960px WebP **in the browser** before upload
 - 🧪 **Demo mode** with 7 sample bouquets, so the whole thing works without any backend
@@ -143,6 +144,7 @@ src/
 │   ├── BouquetCard.jsx       🃏 Arch card on the shop page
 │   ├── BouquetDialog.jsx     🔍 Big photo and description
 │   ├── BouquetForm.jsx       ✏️ Add / edit in three languages
+│   ├── CategoryManager.jsx   🗂️ Add / remove categories
 │   ├── ProtectedRoute.jsx    🔐 Admin access check
 │   └── Loading.jsx           ⏳ Spinning flower
 ├── pages/
@@ -153,6 +155,7 @@ src/
     ├── productService.js     🔌 Demo storage or Supabase
     ├── adminAccess.js        👥 Sign-in and admin check
     ├── sampleBouquets.js     🌷 The 7 sample bouquets and categories
+    ├── categories.js         🗂️ Category list and names for every page
     ├── optimizeImage.js      🖼️ Resize to WebP before upload
     ├── supabaseClient.js     🔌 Supabase client (or demo mode)
     ├── theme.js              🌗 Theme storage
@@ -188,7 +191,8 @@ Open `http://localhost:5173`. The admin panel is at `/login` → `/admin`, passw
 <summary>🗄️ Database, security rules, photo bucket and admin account</summary>
 
 1. Create a Supabase project and open the **SQL Editor**.
-2. Run [`supabase/schema.sql`](supabase/schema.sql). It creates the `bouquets` and `admin_users` tables, the security rules, the `bouquet-images` bucket and the 7 sample bouquets.
+2. Run [`supabase/schema.sql`](supabase/schema.sql). It creates the `categories`, `bouquets` and `admin_users` tables, the security rules, the `bouquet-images` bucket and the 7 sample bouquets.
+   > Already set up before categories were added? Run [`supabase/migrations/002_categories.sql`](supabase/migrations/002_categories.sql) once instead.
 3. Turn on email/password sign-in in **Authentication**, create the florist's account, and add its UUID:
    ```sql
    insert into public.admin_users (user_id) values ('REPLACE_WITH_AUTH_USER_UUID') on conflict do nothing;
@@ -229,6 +233,7 @@ Open `http://localhost:5173`. The admin panel is at `/login` → `/admin`, passw
 - [x] 🖼️ Photo upload with in-browser WebP resize
 - [x] 🛡️ Supabase schema with Row Level Security
 - [x] 🧪 Demo mode with 7 sample bouquets
+- [x] 🗂️ Categories managed from the admin panel
 - [x] 🚀 Live on Vercel with Supabase
 
 ### 📌 Planned

@@ -13,7 +13,11 @@ import {
   setBouquetAvailability,
   deleteBouquet,
   resetDemoBouquets,
+  getCategories,
+  createCategory,
+  deleteCategory,
 } from '../lib/productService'
+import { CategoriesContext } from '../lib/categories'
 import { onAuthChange } from '../lib/adminAccess'
 
 // the admin side is loaded only when someone opens it
@@ -24,6 +28,7 @@ const ProtectedRoute = lazy(() => import('./ProtectedRoute'))
 export default function App() {
   const { t, i18n } = useTranslation()
   const [bouquets, setBouquets] = useState([])
+  const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [retryCount, setRetryCount] = useState(0)
@@ -35,8 +40,12 @@ export default function App() {
 
   useEffect(() => {
     let active = true
-    getBouquets()
-      .then((list) => active && setBouquets(list))
+    Promise.all([getBouquets(), getCategories()])
+      .then(([list, cats]) => {
+        if (!active) return
+        setBouquets(list)
+        setCategories(cats)
+      })
       .catch((err) => active && setError(err?.message || 'network'))
       .finally(() => active && setLoading(false))
     return () => {
@@ -101,7 +110,37 @@ export default function App() {
   async function handleReset() {
     if (!window.confirm(t('admin.confirmReset'))) return
     setBouquets(await resetDemoBouquets())
+    setCategories(await getCategories())
     toast.success(t('toast.reset'))
+  }
+
+  async function handleAddCategory(category) {
+    try {
+      const saved = await createCategory(category)
+      setCategories((list) => [...list, saved])
+      toast.success(t('toast.categoryAdded'))
+    } catch (err) {
+      fail(err)
+      throw err
+    }
+  }
+
+  async function handleDeleteCategory(category, count) {
+    const name = pick(category.name, i18n.resolvedLanguage)
+    // admins see sold-out bouquets too, so this count covers everything that uses the category
+    if (count > 0) {
+      toast.error(t('admin.categoryInUse', { name }))
+      return
+    }
+    if (!window.confirm(t('admin.confirmDeleteCategory', { name }))) return
+    try {
+      await deleteCategory(category.id)
+      setCategories((list) => list.filter((c) => c.id !== category.id))
+      toast.success(t('toast.categoryDeleted'))
+    } catch (err) {
+      if (err?.message === 'in-use') toast.error(t('admin.categoryInUse', { name }))
+      else fail(err)
+    }
   }
 
   function withData(page) {
@@ -130,6 +169,7 @@ export default function App() {
   }
 
   return (
+    <CategoriesContext.Provider value={categories}>
     <MotionConfig reducedMotion="user">
       <BrowserRouter>
         <Toaster
@@ -155,6 +195,8 @@ export default function App() {
                       onToggle={handleToggle}
                       onDelete={handleDelete}
                       onReset={handleReset}
+                      onAddCategory={handleAddCategory}
+                      onDeleteCategory={handleDeleteCategory}
                     />,
                   )}
                 </ProtectedRoute>
@@ -164,5 +206,6 @@ export default function App() {
         </Suspense>
       </BrowserRouter>
     </MotionConfig>
+    </CategoriesContext.Provider>
   )
 }

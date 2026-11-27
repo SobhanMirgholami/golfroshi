@@ -28,13 +28,6 @@
     "details": "عرض {{name}}",
     "number": "رقم {{n}}"
   },
-  "categories": {
-    "romantic": "رومانسية",
-    "pastel": "ألوان هادئة",
-    "wild": "برية وحدائق",
-    "seasonal": "موسمية",
-    "luxury": "توقيع المشغل"
-  },
   "footer": {
     "note": "تشمل الأسعار التغليف وبطاقة مكتوبة بخط اليد.",
     "admin": "دخول المتجر",
@@ -77,7 +70,21 @@
     "empty": "لا توجد باقات بعد. أضف الباقة الأولى.",
     "demoBadge": "الوضع التجريبي",
     "resetDemo": "استعادة الباقات النموذجية",
-    "confirmReset": "هل تريد استبدال كل الباقات بالباقات النموذجية؟"
+    "confirmReset": "هل تريد استبدال كل الباقات بالباقات النموذجية؟",
+    "categoriesTitle": "الفئات",
+    "categoriesHint": "لا يرى الزبائن الفئة إلا إذا كانت فيها باقة متوفرة. لا يمكن حذف فئة ما زالت باقة تستخدمها.",
+    "addCategory": "إضافة فئة",
+    "categoryPlaceholder": "الاسم بـ{{lang}}",
+    "categoryCount_zero": "لا باقات",
+    "categoryCount_one": "باقة واحدة",
+    "categoryCount_two": "باقتان",
+    "categoryCount_few": "{{count}} باقات",
+    "categoryCount_many": "{{count}} باقة",
+    "categoryCount_other": "{{count}} باقة",
+    "deleteCategory": "حذف الفئة {{name}}",
+    "categoryInUse": "انقل الباقات في «{{name}}» أو احذفها أولًا.",
+    "confirmDeleteCategory": "هل تريد حذف الفئة «{{name}}»؟",
+    "categoryNameMissing": "اكتب اسم الفئة باللغات الثلاث."
   },
   "form": {
     "addTitle": "باقة جديدة",
@@ -111,6 +118,8 @@
     "deleting": "جارٍ الحذف…",
     "toggled": "تغيّرت حالة التوفر.",
     "reset": "استُعيدت الباقات النموذجية.",
-    "failed": "حدث خطأ: {{message}}"
+    "failed": "حدث خطأ: {{message}}",
+    "categoryAdded": "أُضيفت الفئة.",
+    "categoryDeleted": "حُذفت الفئة."
   }
 }

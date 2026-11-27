@@ -1,5 +1,5 @@
 import { supabase, isDemo } from './supabaseClient'
-import { sampleBouquets } from './sampleBouquets'
+import { sampleBouquets, sampleCategories } from './sampleBouquets'
 
 const STORAGE_KEY = 'golfroshi-bouquets'
 const BUCKET = 'bouquet-images'
@@ -77,6 +77,11 @@ const local = {
   async reset() {
     const list = structuredClone(sampleBouquets)
     writeLocal(list)
+    try {
+      localStorage.setItem('golfroshi-categories', JSON.stringify(sampleCategories))
+    } catch {
+      // storage blocked
+    }
     return list
   },
 }
@@ -168,3 +173,84 @@ export const updateBouquet = (bouquet) => service.update(bouquet)
 export const setBouquetAvailability = (id, isAvailable) => service.setAvailability(id, isAvailable)
 export const deleteBouquet = (id) => service.remove(id)
 export const resetDemoBouquets = () => local.reset()
+
+// ---------- categories ----------
+
+const CATEGORY_KEY = 'golfroshi-categories'
+
+// a readable id from the English name, e.g. "Wild & garden" -> "wild-garden"
+export function categoryId(englishName, taken) {
+  const base =
+    englishName
+      .toLowerCase()
+      .normalize('NFKD')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 32) || 'category'
+  let id = base
+  for (let n = 2; taken.includes(id); n++) id = `${base}-${n}`
+  return id
+}
+
+const localCategories = {
+  read() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(CATEGORY_KEY))
+      return Array.isArray(saved) ? saved : structuredClone(sampleCategories)
+    } catch {
+      return structuredClone(sampleCategories)
+    }
+  },
+  write(list) {
+    try {
+      localStorage.setItem(CATEGORY_KEY, JSON.stringify(list))
+    } catch (error) {
+      throw new Error('Browser storage is blocked.', { cause: error })
+    }
+  },
+  async list() {
+    return localCategories.read()
+  },
+  async create(category) {
+    const list = localCategories.read()
+    const saved = { ...category, id: categoryId(category.name.en, list.map((c) => c.id)), position: list.length + 1 }
+    localCategories.write([...list, saved])
+    return saved
+  },
+  async remove(id) {
+    if (readLocal().some((b) => b.category === id)) throw new Error('in-use')
+    localCategories.write(localCategories.read().filter((c) => c.id !== id))
+    return id
+  },
+}
+
+const remoteCategories = {
+  async list() {
+    const { data, error } = await supabase.from('categories').select('id, name, position').order('position').order('created_at')
+    if (error) throw error
+    return data ?? []
+  },
+  async create(category) {
+    const current = await remoteCategories.list()
+    const row = {
+      id: categoryId(category.name.en, current.map((c) => c.id)),
+      name: category.name,
+      position: Math.max(0, ...current.map((c) => c.position)) + 1,
+    }
+    const { data, error } = await supabase.from('categories').insert(row).select('id, name, position').single()
+    if (error) throw error
+    return data
+  },
+  async remove(id) {
+    // the database refuses (foreign key) while a bouquet, even a sold-out one, still uses the category
+    const { error } = await supabase.from('categories').delete().eq('id', id)
+    if (error) throw new Error(error.code === '23503' ? 'in-use' : error.message, { cause: error })
+    return id
+  },
+}
+
+const categories = isDemo ? localCategories : remoteCategories
+
+export const getCategories = () => categories.list()
+export const createCategory = (category) => categories.create(category)
+export const deleteCategory = (id) => categories.remove(id)

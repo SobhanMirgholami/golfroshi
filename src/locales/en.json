@@ -24,13 +24,6 @@
     "details": "View {{name}}",
     "number": "No. {{n}}"
   },
-  "categories": {
-    "romantic": "Romantic",
-    "pastel": "Pastel",
-    "wild": "Wild & garden",
-    "seasonal": "Seasonal",
-    "luxury": "Signature"
-  },
   "footer": {
     "note": "Prices include wrapping and a handwritten card.",
     "admin": "Shop login",
@@ -73,7 +66,17 @@
     "empty": "No bouquets yet. Add the first one.",
     "demoBadge": "Demo mode",
     "resetDemo": "Reset sample bouquets",
-    "confirmReset": "Replace all bouquets with the sample bouquets?"
+    "confirmReset": "Replace all bouquets with the sample bouquets?",
+    "categoriesTitle": "Categories",
+    "categoriesHint": "Customers only see a category when it has an available bouquet. A category that a bouquet still uses can’t be deleted.",
+    "addCategory": "Add category",
+    "categoryPlaceholder": "Name in {{lang}}",
+    "categoryCount_one": "{{count}} bouquet",
+    "categoryCount_other": "{{count}} bouquets",
+    "deleteCategory": "Delete category {{name}}",
+    "categoryInUse": "Move or delete the bouquets in “{{name}}” first.",
+    "confirmDeleteCategory": "Delete the category “{{name}}”?",
+    "categoryNameMissing": "Write the category name in all three languages."
   },
   "form": {
     "addTitle": "New bouquet",
@@ -107,6 +110,8 @@
     "deleting": "Deleting…",
     "toggled": "Availability changed.",
     "reset": "Sample bouquets restored.",
-    "failed": "Something went wrong: {{message}}"
+    "failed": "Something went wrong: {{message}}",
+    "categoryAdded": "Category added.",
+    "categoryDeleted": "Category deleted."
   }
 }

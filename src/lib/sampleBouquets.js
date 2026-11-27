@@ -1,6 +1,12 @@
-// Sample bouquets: the shop starts with these in demo mode, and the Supabase seed uses the same data.
+// Sample bouquets and categories: the shop starts with these in demo mode, and the Supabase seed uses the same data.
 // Photos are illustrations made for this project (public/bouquets).
-export const CATEGORIES = ['romantic', 'pastel', 'wild', 'seasonal', 'luxury']
+export const sampleCategories = [
+  { id: 'romantic', name: { tr: 'Romantik', en: 'Romantic', ar: 'رومانسية' }, position: 1 },
+  { id: 'pastel', name: { tr: 'Pastel', en: 'Pastel', ar: 'ألوان هادئة' }, position: 2 },
+  { id: 'wild', name: { tr: 'Kır ve bahçe', en: 'Wild & garden', ar: 'برية وحدائق' }, position: 3 },
+  { id: 'seasonal', name: { tr: 'Mevsimlik', en: 'Seasonal', ar: 'موسمية' }, position: 4 },
+  { id: 'luxury', name: { tr: 'İmza', en: 'Signature', ar: 'توقيع المشغل' }, position: 5 },
+]
 
 export const sampleBouquets = [
   {

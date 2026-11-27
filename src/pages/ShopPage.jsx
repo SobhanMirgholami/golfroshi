@@ -6,7 +6,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react'
 import Header from '../components/Header'
 import BouquetCard from '../components/BouquetCard'
 import BouquetDialog from '../components/BouquetDialog'
-import { CATEGORIES } from '../lib/sampleBouquets'
+import { useCategories } from '../lib/categories'
 import { pick } from '../i18n'
 
 export default function ShopPage({ bouquets }) {
@@ -15,10 +15,12 @@ export default function ShopPage({ bouquets }) {
   const [category, setCategory] = useState('all')
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(null)
+  const categories = useCategories()
 
   // customers only ever see what is in the shop right now
   const available = useMemo(() => bouquets.filter((b) => b.isAvailable), [bouquets])
-  const usedCategories = CATEGORIES.filter((c) => available.some((b) => b.category === c))
+  // only show categories that have something on the table right now
+  const usedCategories = categories.filter((c) => available.some((b) => b.category === c.id))
 
   const shown = available.filter((b) => {
     if (category !== 'all' && b.category !== category) return false
@@ -52,7 +54,7 @@ export default function ShopPage({ bouquets }) {
         {available.length > 0 && (
           <div className="sticky top-16 z-20 -mx-4 flex flex-col gap-3 border-y border-line bg-paper/85 px-4 py-3 backdrop-blur-md sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:rounded-full sm:border sm:px-3">
             <div role="group" aria-label={t('form.category')} className="-mx-1 flex gap-1 overflow-x-auto px-1">
-              {['all', ...usedCategories].map((c) => (
+              {[{ id: 'all' }, ...usedCategories].map(({ id: c, name }) => (
                 <button
                   key={c}
                   type="button"
@@ -60,7 +62,7 @@ export default function ShopPage({ bouquets }) {
                   onClick={() => setCategory(c)}
                   className={`shrink-0 rounded-full px-4 py-2 text-sm transition-colors ${category === c ? 'bg-ink text-paper' : 'text-muted hover:text-ink'}`}
                 >
-                  {c === 'all' ? t('catalog.all') : t(`categories.${c}`)}
+                  {c === 'all' ? t('catalog.all') : pick(name, lang)}
                 </button>
               ))}
             </div>
