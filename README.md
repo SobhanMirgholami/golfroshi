@@ -6,7 +6,8 @@
 
 ### Only the bouquets that are in the shop right now. The florist updates it themselves.
 
-![Status](https://img.shields.io/badge/status-demo-e6909f?style=for-the-badge)
+![Status](https://img.shields.io/badge/status-live-e6909f?style=for-the-badge)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
@@ -15,6 +16,8 @@
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
 
 **🇹🇷 Türkçe · 🇬🇧 English · 🇸🇦 العربية (right-to-left) · 🌗 Light & dark · 📱 Mobile first**
+
+### 🔗 [See the live shop](https://golfroshi.vercel.app)
 
 </div>
 
@@ -116,6 +119,7 @@ So the public site shows **only the available bouquets**. When a bouquet sells o
 | 🔑 Auth | Supabase Auth (email + password) |
 | 🖼️ Images | Supabase Storage |
 | 🔔 UI | react-hot-toast, Phosphor Icons |
+| 🚀 Hosting | Vercel |
 
 ---
 
@@ -225,9 +229,9 @@ Open `http://localhost:5173`. The admin panel is at `/login` → `/admin`, passw
 - [x] 🖼️ Photo upload with in-browser WebP resize
 - [x] 🛡️ Supabase schema with Row Level Security
 - [x] 🧪 Demo mode with 7 sample bouquets
+- [x] 🚀 Live on Vercel with Supabase
 
 ### 📌 Planned
-- [ ] 🚀 Live demo
 - [ ] 📲 "Order on WhatsApp" button on each bouquet
 - [ ] 📡 Live updates with Supabase Realtime
 - [ ] ↕️ Drag to reorder bouquets
