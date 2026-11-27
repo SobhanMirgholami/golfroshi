@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence, MotionConfig } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { MagnifyingGlass } from '@phosphor-icons/react'
 import Header from '../components/Header'
 import BouquetCard from '../components/BouquetCard'
 import BouquetDialog from '../components/BouquetDialog'
 import HeroPetals from '../components/HeroPetals'
+import HeroTitle, { FadeUp } from '../components/HeroTitle'
 import { useCategories } from '../lib/categories'
 import { pick } from '../i18n'
 
@@ -35,36 +36,31 @@ export default function ShopPage({ bouquets }) {
     <>
       <Header />
       <main className="mx-auto max-w-6xl px-4 sm:px-6">
-        <section className="relative isolate grid gap-8 py-14 sm:py-20 md:grid-cols-[1.4fr_1fr] md:items-end">
-          <HeroPetals />
-          <div>
-            <p className="hero-fade flex items-center gap-2 text-xs tracking-[0.22em] text-leaf uppercase">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-leaf opacity-60 motion-reduce:animate-none" />
-                <span className="relative inline-flex size-2 rounded-full bg-leaf" />
-              </span>
-              {t('hero.eyebrow')}
-            </p>
-            <h1 className="mt-5 font-display text-5xl leading-[1.02] font-light tracking-tight text-balance sm:text-7xl" aria-label={t('hero.title')}>
+        {/* the hero plays its animation for everyone, even with "reduce motion" on: it is short and gentle */}
+        <MotionConfig reducedMotion="never">
+          <section className="relative isolate grid gap-8 py-14 sm:py-20 md:grid-cols-[1.4fr_1fr] md:items-end">
+            <HeroPetals />
+            <div>
+              <FadeUp className="flex items-center gap-2 text-xs tracking-[0.22em] text-leaf uppercase">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-leaf opacity-60" />
+                  <span className="relative inline-flex size-2 rounded-full bg-leaf" />
+                </span>
+                {t('hero.eyebrow')}
+              </FadeUp>
               {/* key: replay the rise when the language changes */}
-              <span key={lang} aria-hidden="true">
-                {t('hero.title')
-                  .split(' ')
-                  .map((word, i) => (
-                    <span key={i}>
-                      <span className="hero-word">
-                        <span style={{ '--i': i }}>{word}</span>
-                      </span>{' '}
-                    </span>
-                  ))}
-              </span>
-            </h1>
-          </div>
-          <div className="hero-fade flex flex-col gap-4 md:pb-3" style={{ '--delay': '0.7s' }}>
-            <p className="leading-relaxed text-muted">{t('hero.subtitle')}</p>
-            <p className="font-display text-lg italic">{t('hero.count', { count: available.length })}</p>
-          </div>
-        </section>
+              <HeroTitle
+                key={lang}
+                text={t('hero.title')}
+                className="mt-5 font-display text-5xl leading-[1.02] font-light tracking-tight text-balance sm:text-7xl"
+              />
+            </div>
+            <FadeUp delay={0.7} className="flex flex-col gap-4 md:pb-3">
+              <p className="leading-relaxed text-muted">{t('hero.subtitle')}</p>
+              <p className="font-display text-lg italic">{t('hero.count', { count: available.length })}</p>
+            </FadeUp>
+          </section>
+        </MotionConfig>
 
         {available.length > 0 && (
           <div className="sticky top-16 z-20 -mx-4 flex flex-col gap-3 border-y border-line bg-paper/85 px-4 py-3 backdrop-blur-md sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:rounded-full sm:border sm:px-3">

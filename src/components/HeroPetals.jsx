@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react'
 
 // Petals drifting down behind the hero text.
 // Kept light for phones: a handful of small SVGs, animated with CSS transform and opacity only
-// (no JavaScript per frame), fewer petals on small screens, paused when the hero is off screen,
-// and switched off completely for "reduce motion".
+// (no JavaScript per frame), fewer petals on small screens, and paused when the hero is off screen.
 const PETALS = [
   { left: 6, size: 18, duration: 14, delay: 0, drift: 40, tone: 'accent' },
   { left: 18, size: 12, duration: 11, delay: 4, drift: -30, tone: 'leaf' },
